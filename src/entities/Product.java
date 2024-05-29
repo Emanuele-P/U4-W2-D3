@@ -20,7 +20,7 @@ public class Product {
     public double calculateDiscount() {
         return price * (1 - 0.10);
     }
-    
+
     public String getName() {
         return name;
     }

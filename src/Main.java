@@ -56,15 +56,28 @@ public class Main {
         System.out.println("--------Ex3--------");
         items.stream().filter(item -> item.getCategory().equals("Accessory"))
                 .forEach(item -> {
+                    double originalPrice = item.getPrice();
                     double discountedPrice = item.calculateDiscount();
-                    System.out.println(item.getName() + ": original price was " + item.getPrice() +
+                    item.setPrice(discountedPrice);
+                    System.out.println(item.getName() + ": original price was " + originalPrice +
                             ", discounted price is " + discountedPrice);
                 });
 
         System.out.println("--------Ex4--------");
-        orders.stream().filter(order -> order.getCustomer().getTier() == 2 &&
+        List<Order> filteredOrders = orders.stream().filter(order -> order.getCustomer().getTier() == 2 &&
                         order.getOrderDate().isAfter(LocalDate.parse("2024-02-01")) &&
                         order.getOrderDate().isBefore(LocalDate.parse("2024-04-01")))
-                .forEach(System.out::println);
+                .toList();
+
+        List<Product> ex4 = new ArrayList<>();
+        for (Order order : filteredOrders) {
+            List<Product> products = order.getProducts();
+            ex4.addAll(products);
+        }
+
+        for (Product product : ex4) {
+            System.out.println(product);
+        }
+
     }
 }
