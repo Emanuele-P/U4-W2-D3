@@ -16,6 +16,11 @@ public class Product {
         this.price = price;
     }
 
+    //discount method/////////
+    public double calculateDiscount() {
+        return price * (1 - 0.10);
+    }
+    
     public String getName() {
         return name;
     }

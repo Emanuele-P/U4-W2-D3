@@ -10,9 +10,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        Customer customer1 = new Customer("Cloud Strife", 1);
-        Customer customer2 = new Customer("Barret Wallace", 2);
-        Customer customer3 = new Customer("Aerith Gainsborough", 1);
+        Customer customer1 = new Customer("Cloud Strife", 2);
+        Customer customer2 = new Customer("Barret Wallace", 1);
+        Customer customer3 = new Customer("Aerith Gainsborough", 2);
 
         Product product1 = new Product("Buster Sword", "Weapon", 3000.00);
         Product product2 = new Product("Masamune", "Weapon", 5000.00);
@@ -47,7 +47,24 @@ public class Main {
                 && item.getPrice() > 3000.00).forEach(System.out::println);
 
         System.out.println("--------Ex2--------");
-        
+        List<Order> orders = new ArrayList<>(Arrays.asList(order1, order2, order3));
+        orders.stream()
+                .filter(order -> order.getProducts()
+                        .stream().anyMatch(product -> product.getCategory().equals("Remedy")))
+                .forEach(System.out::println);
 
+        System.out.println("--------Ex3--------");
+        items.stream().filter(item -> item.getCategory().equals("Accessory"))
+                .forEach(item -> {
+                    double discountedPrice = item.calculateDiscount();
+                    System.out.println(item.getName() + ": original price was " + item.getPrice() +
+                            ", discounted price is " + discountedPrice);
+                });
+
+        System.out.println("--------Ex4--------");
+        orders.stream().filter(order -> order.getCustomer().getTier() == 2 &&
+                        order.getOrderDate().isAfter(LocalDate.parse("2024-02-01")) &&
+                        order.getOrderDate().isBefore(LocalDate.parse("2024-04-01")))
+                .forEach(System.out::println);
     }
 }
